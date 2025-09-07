@@ -1,0 +1,99 @@
+using System;
+
+//top level
+Console.WriteLine("Hello I am top level statement");
+
+string result = MyNameSpace.Myclass.print();                   // error will occur if print() method is non static or instance method
+Console.WriteLine(result); // expected - Hello form inside namespace.
+
+// namespace + class + Normal method
+namespace MyNameSpace {
+    public class Myclass{
+        
+        public static string print(){        // print method -- static method 
+            return "Hello from inside namespace";
+        }
+    }
+}
+
+=============================================================================
+using System;
+using MyNameSpace;
+//top level
+// Console.WriteLine("Hello I am top level statement");
+
+Console.WriteLine("Now... creating object using normal method nd calling print()");
+
+Myclass obj = new Myclass();
+string result1 = obj.print();  
+Console.WriteLine(result1);   // expected - Hello from inside namespace
+
+// using var keyword -- var keyword-- s bhi obj bna skte h.
+// class name br br likhne ki jarurt nhi. 
+// C# khud hi samajh jaata hai ki object ka type kya hai Lekin dono tareekon se object banane ka result same hi hota hai aur object ko use karne ka tareeka bhi ek jaisa hi hota hai
+Console.WriteLine();
+
+Console.WriteLine("Now... creating object using var keyword and calling print()");
+
+var obj2 = new Myclass();
+string result2 = obj2.print();      
+Console.WriteLine(result2);   // same output -- expected
+
+// namespace + class + Normal method
+namespace MyNameSpace {
+    public class Myclass{
+        
+        //instance method -- need obj ref to be called on
+        public string print(){
+            return "Hello from inside namespace";
+        }
+    }
+}
+
+=============================================================================
+Note:- 
+var - can be used to create an obj --> advantage-->you don't need to write the class name again & again.
+Doubt clear between  - static / Instance methods
+Instance methods --> associated with class's objs --> need obj ref to be called on
+     Within class -- non static methods --> are somewhat we can say are Instance methods.
+     Instance method can access nd modify static variable.
+static method --> associated with class --> ex- phone calling feature --> puri phone class ke liye hoga.
+     directly access through class name. 
+
+=================================================================================
+Q. Instance method can access nd modify static variable. Answer: Yes
+ 
+using System;
+
+public class Myclass {
+    
+    // static varible 
+    public static int count = 0; 
+    
+    // instance method -- trying to change static variable(count).allowed
+    public void Increment_count(){
+        count ++;
+        
+        Console.WriteLine($"Current count is :- {count}"); // count is accessible here within the class.
+    }
+}
+
+public class Program{
+    public static void Main(String []args){
+        var obj1 = new Myclass();
+        obj1.Increment_count();  //1
+        obj1.Increment_count();  //2
+        obj1.Increment_count();  //3
+        // Console.WriteLine(count);  // error: The name 'count' does not exist in the current context
+
+    }
+}
+
+Output :-
+Current count is :- 1
+Current count is :- 2
+Current count is :- 3
+=================================================================================
+
+====================================================================================
+
