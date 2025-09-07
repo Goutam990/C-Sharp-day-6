@@ -1,0 +1,87 @@
+Action Delegate in C# :- 
+Action delegate ek built-in delegate type hai jo System namespace m define kiya gya h. 
+Iska use un methods ko reference karne ke liye kiya jata h
+jo koi value return nhi karti (yaani, void return type hota h) aur zero se lekar ke 16 arguments tak le skti h.
+
+use  kb karunga?
+
+   1. Event Handling: Jb mujhe kisi event ke hone pr koi action perform karna ho jo koi value return na karta ho.
+
+   2. Callbacks: Jb m kisi method ko ek aur method provide krna chahta hu jise uske complete hone par execute kiya ja sake.
+
+   3. Multithreading: jb m background thread pr koi operation execute krna chahte ho.
+
+   4. LINQ: ForEach extension method jaise operations m.
+
+========================================================
+using System;
+
+public class HelloWorld
+{
+    public static void Main(string[] args)
+    {
+        // 1. Action (No arguments):
+        Action greet = sayHello;  // sayHello -- void return type
+        greet();    // "hello From Action!!!" likha ayega
+        
+        public static void sayHello(){
+            Console.WriteLine("hello From Action!!!!");
+        }
+        
+    }
+}
+======================================================
+
+using System;
+
+public class HelloWorld
+{
+    public static void Main(string[] args)
+    {
+         // Lambda expression ke saath - Action delegate
+         Action Greet = () => Console.WriteLine("hello From Lamda exp!!! ");
+         Greet();  //hello From Lamda exp!!! 
+    }
+}
+=================================================
+
+using System;
+
+public class HelloWorld
+{
+    public static void Main(string[] args)
+    {
+        // Action<T> (One argument):
+
+          // Ek method jo ek string argument leta hai aur void return karta hai
+
+        Action<string> displayMyName = display;
+        displayMyName("Goutam Tiwari");   // Your name is Goutam Tiwari
+        
+        void display(string str){
+            Console.WriteLine($"Your name is : {str}");
+        }
+    }
+}
+=================================================
+
+using System;
+
+public class HelloWorld
+{
+    public static void Main(string[] args)
+    {
+        // Action <T1,T2>
+        
+        Action<string,int> Details = details;
+        Details("Goutam",23);
+        
+        
+       void details(string name,int age){
+           Console.WriteLine($"Your Name is {name} and age is {age}");    //Your Name is Goutam and age is 23
+       }
+        
+    }
+}
+
+==================================
