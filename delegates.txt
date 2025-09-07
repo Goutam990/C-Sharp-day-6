@@ -1,0 +1,105 @@
+In essence, the "type-safe" aspect means the compiler guarantees that the method being called through the delegate will always have the expected input and output types.
+
+==================================================
+// Online C# Editor for free
+// Write, Edit and Run your C# code using C# Online Compiler
+
+using System;
+
+public class HelloWorld
+
+{
+      // 1. Delegate ko define karna
+    public delegate int delgate1(string Name, int age);
+    
+    
+    // 2. Ek valid method jo delegate se compatible ho
+    // Syntax sahi hai aur return type (int) aur parameters (string, int) match karte hain.
+      public int GreetAndCalculateAge(string name, int birthYear)
+    {
+        int currentYear = DateTime.Now.Year;
+        int age = currentYear - birthYear;
+        Console.WriteLine($"Hello, {name}! You are {age} years old.");
+        return age;
+    }
+        
+        /*
+        // diffrent method pointing to delegate1
+        public int Mymethod(string Name, int age){}     // ok
+         public float Mymethod2(string Name, int age){} //Return Type: Mismatch
+          public int Mymethod3(int age, string Name){}   //parameter order : Mismatch
+          */
+          
+    public static void Main(string[] args)
+    {
+       //obj create kia.
+       HelloWorld obj = new HelloWorld();
+       
+        // 3. Delegate ka instance bnana aur instance method assign krna
+       delgate1 instance_of_del = new delgate1(obj.GreetAndCalculateAge);  
+       
+    //   Greet method jo h vo intance method h .. access through obj.greet.
+    
+      // 4. Delegate ke through method ko call karna
+      int userAge = instance_of_del("Goutam",2002);
+      Console.WriteLine($"Method retured:- {userAge}");
+        
+    }
+}
+
+Output:- 
+Hello, Goutam! You are 23 years old.
+Method retured:- 23
+======================================================== Another Senerio -- static bna diya method ko -- then obj bnane ki jarurt nhi=====================
+// Online C# Editor for free
+// Write, Edit and Run your C# code using C# Online Compiler
+
+using System;
+
+public class HelloWorld
+
+{
+      // 1. Delegate ko define karna
+    public delegate int delgate1(string Name, int age);
+    
+    
+    // 2. Ek valid method jo delegate se compatible ho
+    // Syntax sahi hai aur return type (int) aur parameters (string, int) match karte hain.
+      public static int GreetAndCalculateAge(string name, int birthYear)
+    {
+        int currentYear = DateTime.Now.Year;
+        int age = currentYear - birthYear;
+        Console.WriteLine($"Hello, {name}! You are {age} years old.");
+        return age;
+    }
+        
+        /*
+        // diffrent method pointing to delegate1
+        public int Mymethod(string Name, int age){}     // ok
+         public float Mymethod2(string Name, int age){} //Return Type: Mismatch
+          public int Mymethod3(int age, string Name){}   //parameter order : Mismatch
+          */
+          
+    public static void Main(string[] args)
+    {
+     
+       
+        // 3. Delegate ka instance bnana aur instance method assign krna
+       delgate1 instance_of_del = new delgate1(HelloWorld.GreetAndCalculateAge);  
+       
+    //   Greet method jo h vo intance method h .. access through obj.greet.
+    
+      // 4. Delegate ke through method ko call karna
+      int userAge = instance_of_del("Goutam",2002);
+      Console.WriteLine($"Method retured:- {userAge}");
+       
+       
+       
+          
+        
+    }
+}
+
+Output :- Hello, Goutam! You are 23 years old.
+Method retured:- 23
+==========================================================================================================
