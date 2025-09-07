@@ -1,0 +1,36 @@
+Lamda Expression is an anonymous (nameless) method that I can write inline, instead of declaring a separate method with a name.
+It’s often used with delegates, LINQ, and events.
+
+
+
+using System;
+
+public class HelloWorld
+{
+    public static void Main(string[] args)
+    {
+        
+        // lamda expression - No parameters, just prints a line.
+        Action greetEveryone = () => Console.WriteLine("Hello everyone!!!");
+        greetEveryone();
+        
+        // Lamda exp - with parameters
+        // Func - is a delegate type itself  
+        // It represents a method that takes zero or more input parameters and returns a value.
+
+        Func<int,int,int> add = (a,b) => a + b ; //The third int specifies the type of the return value of the function.
+        Console.WriteLine(add(5,7));   // 12
+        
+        //multiple statements 
+        Action<string> introduce = (name) => 
+        {
+            Console.WriteLine($"Hello, my name is " + name);
+            Console.WriteLine("Nice to meet you!");
+            
+        };
+        
+        introduce("goutam");
+        
+        //When i have multiple line in the body then i will wrap it in {...}
+    }
+}
